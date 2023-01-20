@@ -5,31 +5,36 @@ import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
+// import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { Link } from 'react-router-dom'
+import {useState} from 'react'
+import {  addSignupUser } from '../Redux/Reducer'
+import { useSelector, useDispatch } from 'react-redux'
 
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+// function Copyright(props) {
+//   return (
+//     <Typography variant="body2" color="text.secondary" align="center" {...props}>
+//       {'Copyright © '}
+//       <Link color="inherit" href="https://mui.com/">
+//         Your Website
+//       </Link>{' '}
+//       {new Date().getFullYear()}
+//       {'.'}
+//     </Typography>
+//   );
+// }
 
 const theme = createTheme();
 
 export default function SignUp() {
   const handleSubmit = (event) => {
+    dispatch(addSignupUser(signedUp))
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     console.log({
@@ -37,6 +42,24 @@ export default function SignUp() {
       password: data.get('password'),
     });
   };
+
+  const dispatch = useDispatch()
+
+  const [signedUp, setsignedUp] = useState({
+    userName: "",
+    email: "",
+    password: "",
+    
+  });
+  const Setting = (event) => {
+    const { name, value } = event.target
+    setsignedUp((data) => {
+      return {
+        ...data,
+        [name]: value
+      }
+    })
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -67,9 +90,11 @@ export default function SignUp() {
                   id="userName"
                   label="User Name"
                   autoFocus
+                  onChange={Setting}
+                  value={signedUp.userName}
                 />
               </Grid>
-             
+
               <Grid item xs={12}>
                 <TextField
                   required
@@ -78,6 +103,8 @@ export default function SignUp() {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
+                  onChange={Setting}
+                  value={signedUp.email}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -89,6 +116,8 @@ export default function SignUp() {
                   type="password"
                   id="password"
                   autoComplete="new-password"
+                  onChange={Setting}
+                  value={signedUp.password}
                 />
               </Grid>
               {/* <Grid item xs={12}>
@@ -108,14 +137,14 @@ export default function SignUp() {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link to="/login">
                   Already have an account? Sign in
                 </Link>
               </Grid>
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 5 }} />
+        {/* <Copyright sx={{ mt: 5 }} /> */}
       </Container>
     </ThemeProvider>
   );

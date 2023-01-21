@@ -14,6 +14,7 @@ import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import pic1 from '../image/weather.jpg';
 import { Link } from 'react-router-dom'
+import {useDispatch, useState} from 'react'
 
 // function Copyright(props) {
 //   return (
@@ -31,6 +32,24 @@ import { Link } from 'react-router-dom'
 const theme = createTheme();
 
 export default function Login() {
+
+    const dispatch = useDispatch()
+
+  const [logIn, setlogIn] = useState({
+    email: "",
+    password: "",
+  });
+
+  const Setting = (event) => {
+    const { name, value } = event.target
+    setlogIn((data) => {
+      return {
+        ...data,
+        [name]: value
+      }
+    })
+  }
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -84,6 +103,8 @@ export default function Login() {
                 name="email"
                 autoComplete="email"
                 autoFocus
+                onChange={Setting}
+                value={logIn.email}
               />
               <TextField
                 margin="normal"
@@ -94,6 +115,8 @@ export default function Login() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                onChange={Setting}
+                value={logIn.password}
               />
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}

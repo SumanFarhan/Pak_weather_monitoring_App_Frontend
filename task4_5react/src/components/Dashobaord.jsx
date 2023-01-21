@@ -9,7 +9,6 @@ import FormControl from '@mui/material/FormControl';
 import CardMedia from '@mui/material/CardMedia';
 import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
-import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
@@ -18,11 +17,11 @@ import Link from '@mui/material/Link';
 import TextField from '@mui/material/TextField';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useSelector, useDispatch } from 'react-redux'
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
-import { addweather } from '../Redux/Reducer'
+import { addweather,getFiveCities } from '../Redux/Reducer'
 
 function Copyright() {
     return (
@@ -46,8 +45,13 @@ export default function Dashobaord() {
     
     const _id = useSelector(state => state.user.loginData)
     const dispatch = useDispatch()
+    useEffect(()=>{
+        dispatch(getFiveCities())
+      },[])
 
 
+      const fiveCitiesData=useSelector(state => state.user.fiveCitiesweatherData)
+      console.log("From use selector",fiveCitiesData)
     const [weatherData, setweatherData] = useState({
         cityName: "",
         temperatureUnit: "",
@@ -144,7 +148,7 @@ export default function Dashobaord() {
                 <Container sx={{ py: 8 }} maxWidth="md">
                     {/* End hero unit */}
                     <Grid container spacing={4}>
-                        {cards.map((card) => (
+                        {fiveCitiesData.map((card) => (
                             <Grid item key={card} xs={12} sm={6} md={4}>
                                 <Card
                                     sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
@@ -160,11 +164,19 @@ export default function Dashobaord() {
                                     />
                                     <CardContent sx={{ flexGrow: 1 }}>
                                         <Typography>
-                                        City Name:
-                                        Temperature:
+                                        City Name:{card.city_name}
+                                        <br/>
+                                        Temperature:{card.temperature}
+                                        <br/>
+                                        feels_like:{card.feels_like}
+                                        <br/>
                                         Humidity:
-                                        sunrise:
+                                        <br/>
+                                        Sunrise:
+                                        <br/>
                                         Sunset:
+                                        <br/>
+
                                         </Typography>
                                     </CardContent>
                                     <CardActions>
@@ -196,3 +208,37 @@ export default function Dashobaord() {
         </ThemeProvider>
     );
 }
+
+
+
+
+                        {/* {cards.map((card) => (
+                            <Grid item key={card} xs={12} sm={6} md={4}>
+                                <Card
+                                    sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
+                                >
+                                    <CardMedia
+                                        component="img"
+                                        sx={{
+                                            // 16:9
+                                            pt: '56.25%',
+                                        }}
+                                        image="https://source.unsplash.com/random"
+                                        alt="random"
+                                    />
+                                    <CardContent sx={{ flexGrow: 1 }}>
+                                        <Typography>
+                                        City Name:
+                                        Temperature:
+                                        Humidity:
+                                        sunrise:
+                                        Sunset:
+                                        </Typography>
+                                    </CardContent>
+                                    <CardActions>
+                                        <Button size="small">Edit</Button>
+                                        <Button size="small">Delete</Button>
+                                    </CardActions>
+                                </Card>
+                            </Grid>
+                        ))} */}

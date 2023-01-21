@@ -43,17 +43,31 @@ export const addweather = createAsyncThunk(
     }
 )
 
+export const getFiveCities = createAsyncThunk(
+    'weather/getFiveCities',
+    async (data, thunkApi) => {
+        const requestOptions = {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+            
+        };
+        const res = await fetch('http://localhost:3007/getFiveCities', requestOptions)
+        return res.json();
+    }
+)
+
+
 
 const initialState = {
     userData: [],
     loginData: [],
-    EmployeeData: [],
+    fiveCitiesweatherData:[],
     redirectToDashboard: false
 }
 
 
 export const addUser = createSlice({
-
     name: 'user',
     initialState,
     reducers: {},
@@ -90,6 +104,10 @@ export const addUser = createSlice({
         [addweather.rejected]: (state) => {
             console.log('login Rejected');
         },
+        [getFiveCities.fulfilled]:(state,action)=>{
+            state.fiveCitiesweatherData=action.payload
+            console.log('fulfilled',state.fiveCitiesweatherData)
+        }
         // [addEmployeeData.pending]: state => {
         //     console.log('Signup Pending...');
         // },

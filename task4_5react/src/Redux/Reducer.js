@@ -24,7 +24,7 @@ export const addLoginUser = createAsyncThunk(
         };
 
         const res = await fetch('http://localhost:3007/loginUser', requestOptions)
-            // useDispatch(push('/dashboard'));
+           
             return res.json();
     }
 )

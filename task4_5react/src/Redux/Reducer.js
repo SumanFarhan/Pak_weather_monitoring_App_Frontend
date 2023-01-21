@@ -18,9 +18,9 @@ export const addLoginUser = createAsyncThunk(
     'user/login',
     async (data, thunkApi) => {
         const requestOptions = {
-            method: 'GET',
+            method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify( data)
+            body: JSON.stringify(data)
         };
         console.log("inside login reducer");
         const res = await fetch('http://localhost:3007/loginUser', requestOptions)
@@ -59,7 +59,7 @@ export const addUser = createSlice({
             console.log('login Pending...');
         },
         [addLoginUser.fulfilled]: (state, action) => {
-            state.loginData = action.payload.message;
+            state.loginData = action.payload.user;
             alert("Logedin Successfully")
             console.log('login done...');
             state.redirectToDashboard = true;

@@ -18,14 +18,14 @@ export const addLoginUser = createAsyncThunk(
     'user/login',
     async (data, thunkApi) => {
         const requestOptions = {
-            method: 'POST',
+            method: 'GET',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify( data)
         };
-
+        console.log("inside login reducer");
         const res = await fetch('http://localhost:3007/loginUser', requestOptions)
-           
-            return res.json();
+        console.log("after login reducer");
+        return res.json();
     }
 )
 
@@ -43,22 +43,30 @@ export const addUser = createSlice({
     initialState,
     reducers: {},
     extraReducers: {
-        // [addSignupUser.rejected]: (state) => {
-        //     console.log('Signup Rejected');
-        // },
-        // [addSignupUser.fulfilled]: (state, action) => {
-        //     console.log(JSON.stringify(action.payload));
-        //     console.log('Signup done...');
-        //     state.userData = action.payload.data;
-        // },
-        // [addSignupUser.pending]: state => {
-        //     console.log('Signup Pending...');
-        // },
-        // [addLoginUser.fulfilled]: (state, action) => {
-        //     state.loginData = action.payload.data;
-        //     console.log('login done...');
-        //     state.redirectToDashboard = true;
-        // },
+        [addSignupUser.rejected]: (state) => {
+            console.log('Signup Rejected');
+        },
+        [addSignupUser.fulfilled]: (state, action) => {
+            console.log(JSON.stringify(action.payload));
+            console.log('Signup done...');
+            state.response = action.payload.message;
+            alert(state.response);
+        },
+        [addSignupUser.pending]: state => {
+            console.log('Signup Pending...');
+        },
+        [addLoginUser.pending]: state => {
+            console.log('login Pending...');
+        },
+        [addLoginUser.fulfilled]: (state, action) => {
+            state.loginData = action.payload.message;
+            alert("Logedin Successfully")
+            console.log('login done...');
+            state.redirectToDashboard = true;
+        },
+        [addLoginUser.rejected]: (state) => {
+            console.log('login Rejected');
+        },
         // [addEmployeeData.pending]: state => {
         //     console.log('Signup Pending...');
         // },

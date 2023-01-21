@@ -32,16 +32,11 @@ import { useSelector, useDispatch } from 'react-redux'
 
 const theme = createTheme();
 
+
+
+
 export default function SignUp() {
-  const handleSubmit = (event) => {
-    dispatch(addSignupUser(signedUp))
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-  };
+
 
   const dispatch = useDispatch()
 
@@ -61,6 +56,19 @@ export default function SignUp() {
       }
     })
   }
+
+  
+  const handleSubmit = (event) => {
+    dispatch(addSignupUser(signedUp))
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    console.log({
+      email: data.get('email'),
+      password: data.get('password'),
+    });
+  };
+
+ 
 
   return (
     <ThemeProvider theme={theme}>

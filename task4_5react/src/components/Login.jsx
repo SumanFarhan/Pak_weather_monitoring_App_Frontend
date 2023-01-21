@@ -14,7 +14,9 @@ import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import pic1 from '../image/weather.jpg';
 import { Link } from 'react-router-dom'
-import {useDispatch, useState} from 'react'
+import {useDispatch} from 'react-redux'
+import {useState} from 'react'
+import {  addLoginUser } from '../Redux/Reducer'
 
 // function Copyright(props) {
 //   return (
@@ -51,6 +53,7 @@ export default function Login() {
   }
 
   const handleSubmit = (event) => {
+    dispatch(addLoginUser(logIn))
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     console.log({

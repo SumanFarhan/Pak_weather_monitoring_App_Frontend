@@ -13,9 +13,9 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import pic1 from '../image/weather.jpg';
-import { Link } from 'react-router-dom'
-import {useDispatch} from 'react-redux'
-import {useState} from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import {useDispatch, useSelector} from 'react-redux'
+import {useState, useEffect} from 'react'
 import {  addLoginUser } from '../Redux/Reducer'
 
 // function Copyright(props) {
@@ -36,7 +36,9 @@ const theme = createTheme();
 export default function Login() {
 
     const dispatch = useDispatch()
-
+    const DashboardCheck = useSelector(state => state.user.redirectToDashboard)
+    const navigate = useNavigate()
+    
   const [logIn, setlogIn] = useState({
     email: "",
     password: "",
@@ -51,6 +53,12 @@ export default function Login() {
       }
     })
   }
+
+  useEffect(() => {
+    if (DashboardCheck) {
+      navigate("/dashboard");
+    }
+  }, [DashboardCheck])
 
   const handleSubmit = (event) => {
     dispatch(addLoginUser(logIn))

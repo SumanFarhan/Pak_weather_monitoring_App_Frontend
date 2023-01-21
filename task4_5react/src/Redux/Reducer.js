@@ -29,6 +29,21 @@ export const addLoginUser = createAsyncThunk(
     }
 )
 
+export const addweather = createAsyncThunk(
+    'weather/addweather',
+    async (data, thunkApi) => {
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+            
+        };
+        const res = await fetch('http://localhost:3007/addweather', requestOptions)
+        return res.json();
+    }
+)
+
+
 const initialState = {
     userData: [],
     loginData: [],
@@ -65,6 +80,12 @@ export const addUser = createSlice({
             state.redirectToDashboard = true;
         },
         [addLoginUser.rejected]: (state) => {
+            console.log('login Rejected');
+        },
+        [addweather.fulfilled]:(state,action)=>{
+            console.log('fulfilled')
+        },
+        [addweather.rejected]: (state) => {
             console.log('login Rejected');
         },
         // [addEmployeeData.pending]: state => {

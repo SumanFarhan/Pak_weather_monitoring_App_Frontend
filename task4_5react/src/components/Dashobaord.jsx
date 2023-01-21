@@ -22,6 +22,7 @@ import { useState } from 'react';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
+import { addweather } from '../Redux/Reducer'
 
 function Copyright() {
     return (
@@ -59,7 +60,7 @@ export default function Dashobaord() {
     }
 
     const handleSubmit = (event) => {
-        // dispatch(addSignupUser(weatherData))
+        dispatch(addweather(weatherData))
         event.preventDefault();
     };
 

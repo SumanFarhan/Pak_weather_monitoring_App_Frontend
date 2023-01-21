@@ -74,8 +74,8 @@ export const addUser = createSlice({
             console.log('login Pending...');
         },
         [addLoginUser.fulfilled]: (state, action) => {
-            state.loginData = action.payload.user;
-            alert("Logedin Successfully")
+            state.loginData = action.payload;
+            alert("Logedin Successfully",state.loginData)
             console.log('login done...');
             state.redirectToDashboard = true;
         },
@@ -83,6 +83,8 @@ export const addUser = createSlice({
             console.log('login Rejected');
         },
         [addweather.fulfilled]:(state,action)=>{
+            state.response = action.payload.message;
+            alert("DATA",state.response)
             console.log('fulfilled')
         },
         [addweather.rejected]: (state) => {

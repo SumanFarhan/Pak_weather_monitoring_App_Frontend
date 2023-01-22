@@ -88,7 +88,7 @@ export const addUser = createSlice({
             console.log('login Pending...');
         },
         [addLoginUser.fulfilled]: (state, action) => {
-            state.loginData = action.payload;
+            state.loginData = action.payload.userID;
             alert("Logedin Successfully",state.loginData)
             console.log('login done...');
             state.redirectToDashboard = true;

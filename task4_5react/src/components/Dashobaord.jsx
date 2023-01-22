@@ -130,8 +130,8 @@ export default function Dashobaord() {
                                     label="Age"
                                     onChange={Setting}
                                 >
-                                    <MenuItem value="F">Farenheit</MenuItem>
-                                    <MenuItem value="C">Celsuis</MenuItem>
+                                    <MenuItem value="imperial">Farenheit</MenuItem>
+                                    <MenuItem value="metric">Celsuis</MenuItem>
                                 </Select>
                                 </FormControl>
 

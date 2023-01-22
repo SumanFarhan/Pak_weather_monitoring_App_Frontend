@@ -63,6 +63,7 @@ const initialState = {
     userData: [],
     loginData: [],
     fiveCitiesweatherData:[],
+    citiesAddedUser:[],
     redirectToDashboard: false
 }
 
@@ -97,22 +98,20 @@ export const addUser = createSlice({
             console.log('login Rejected');
         },
         [addweather.fulfilled]:(state,action)=>{
-            state.response = action.payload.message;
-            alert("DATA",state.response)
-            console.log('fulfilled')
+            (state.citiesAddedUser).push(action.payload.cityData)
+            console.log(state.citiesAddedUser)
+            alert("City has been added")
+
         },
         [addweather.rejected]: (state) => {
             console.log('login Rejected');
         },
         [getFiveCities.fulfilled]:(state,action)=>{
             state.fiveCitiesweatherData=action.payload
-            console.log('fulfilled',state.fiveCitiesweatherData)
         }
     }
 
 })
 
-// Action creators are generated for each case reducer function
-export const { SignupReducer, LoginReducer, AddEmployeeReducer } = addUser.actions
 
 export default addUser.reducer 

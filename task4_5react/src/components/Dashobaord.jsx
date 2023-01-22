@@ -17,11 +17,11 @@ import Link from '@mui/material/Link';
 import TextField from '@mui/material/TextField';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useSelector, useDispatch } from 'react-redux'
-import { useState,useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
-import { addweather,getFiveCities } from '../Redux/Reducer'
+import { addweather, getFiveCities } from '../Redux/Reducer'
 
 
 function Copyright() {
@@ -29,7 +29,7 @@ function Copyright() {
         <Typography variant="body2" color="text.secondary" align="center">
             {'Copyright © '}
             <Link color="inherit" href="#">
-                Pak Weather Monitoring App 
+                Pak Weather Monitoring App
             </Link>{' '}
             {new Date().getFullYear()}
             {'.'}
@@ -40,21 +40,18 @@ function Copyright() {
 const theme = createTheme();
 
 export default function Dashobaord() {
-    
-    
     const _id = useSelector(state => state.user.loginData)
     const dispatch = useDispatch()
-    useEffect(()=>{
+    useEffect(() => {
         dispatch(getFiveCities())
-      },[])
+    }, [])
 
-
-      const fiveCitiesData=useSelector(state => state.user.fiveCitiesweatherData)
-      console.log("From use selector",fiveCitiesData)
+    const fiveCitiesData = useSelector(state => state.user.fiveCitiesweatherData)
+    const citiesAddedUser = useSelector(state => state.user.citiesAddedUser)
     const [weatherData, setweatherData] = useState({
         cityName: "",
         temperatureUnit: "",
-        _id:_id
+        _id: _id
     });
 
     const Setting = (event) => {
@@ -69,6 +66,7 @@ export default function Dashobaord() {
 
     const handleSubmit = (event) => {
         dispatch(addweather(weatherData))
+        console.log(citiesAddedUser)
         event.preventDefault();
     };
 
@@ -112,24 +110,24 @@ export default function Dashobaord() {
                                     autoComplete="new-password"
                                     onChange={Setting}
                                     value={weatherData.cityName}
-                                    sx={{mb: 2 }}
+                                    sx={{ mb: 2 }}
                                 />
                                 <FormControl fullWidth>
-                                <InputLabel id="demo-simple-select-label">Temperature Unit</InputLabel>
-                                <Select
-                                    labelId="demo-simple-select-label"
-                                    required
-                                    helperText="Temperature Unit is required"
-                                    name="temperatureUnit"
-                                    type="text"
-                                    id="temperatureUnit"
-                                    value={weatherData.temperatureUnit}
-                                    label="Age"
-                                    onChange={Setting}
-                                >
-                                    <MenuItem value="imperial">Farenheit</MenuItem>
-                                    <MenuItem value="metric">Celsuis</MenuItem>
-                                </Select>
+                                    <InputLabel id="demo-simple-select-label">Temperature Unit</InputLabel>
+                                    <Select
+                                        labelId="demo-simple-select-label"
+                                        required
+                                        helperText="Temperature Unit is required"
+                                        name="temperatureUnit"
+                                        type="text"
+                                        id="temperatureUnit"
+                                        value={weatherData.temperatureUnit}
+                                        label="Age"
+                                        onChange={Setting}
+                                    >
+                                        <MenuItem value="imperial">Farenheit</MenuItem>
+                                        <MenuItem value="metric">Celsuis</MenuItem>
+                                    </Select>
                                 </FormControl>
 
                                 <Button
@@ -145,7 +143,7 @@ export default function Dashobaord() {
                     </Container>
                 </Box>
                 <Container sx={{ py: 8 }} maxWidth="md">
-                    {/* End hero unit */}
+                <h1 style={{textAlign:"center"}}>Default Cities Data</h1>
                     <Grid container spacing={4}>
                         {fiveCitiesData.map((card) => (
                             <Grid item key={card} xs={12} sm={6} md={4}>
@@ -163,18 +161,20 @@ export default function Dashobaord() {
                                     />
                                     <CardContent sx={{ flexGrow: 1 }}>
                                         <Typography>
-                                        City Name:{card.city_name}
-                                        <br/>
-                                        Temperature:{card.temperature}
-                                        <br/>
-                                        feels_like:{card.feels_like}
-                                        <br/>
-                                        Humidity:{card.humidity}
-                                        <br/>
-                                        Sunrise:
-                                        <br/>
-                                        Sunset:
-                                        <br/>
+                                            City Name:{card.city_name}
+                                            <br />
+                                            Temperature:{card.temperature}
+                                            <br />
+                                            feels_like:{card.feels_like}
+                                            <br />
+                                            Humidity:{card.humidity}
+                                            <br />
+                                            pressure:{card.pressure}
+                                            <br />
+                                            Sunrise:{card.sunrise}
+                                            <br />
+                                            Sunset:{card.sunset}
+                                            <br />
 
                                         </Typography>
                                     </CardContent>
@@ -187,6 +187,53 @@ export default function Dashobaord() {
                         ))}
                     </Grid>
                 </Container>
+                {/* Cities Added By user */}
+                <Container sx={{ py: 8 }} maxWidth="md">
+                <h1 style={{textAlign:"center"}}>Cities Added By user</h1>
+                    <Grid container spacing={4}>
+                        {citiesAddedUser.map((card) => (
+                            <Grid item key={card} xs={12} sm={6} md={4}>
+                                <Card
+                                    sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
+                                >
+                                    <CardMedia
+                                        component="img"
+                                        sx={{
+                                            // 16:9
+                                            pt: '56.25%',
+                                        }}
+                                        image="https://source.unsplash.com/weather"
+                                        alt="weather"
+                                    />
+                                    <CardContent sx={{ flexGrow: 1 }}>
+                                        <Typography>
+                                            City Name:{card.city_name}
+                                            <br />
+                                            Temperature:{card.temperature}
+                                            <br />
+                                            feels_like:{card.feels_like}
+                                            <br />
+                                            Humidity:{card.humidity}
+                                            <br />
+                                            pressure:{card.pressure}
+                                            <br />
+                                            Sunrise:{card.sunrise}
+                                            <br />
+                                            Sunset:{card.sunset}
+                                            <br />
+
+                                        </Typography>
+                                    </CardContent>
+                                    <CardActions>
+                                        <Button size="small">Edit</Button>
+                                        <Button size="small">Delete</Button>
+                                    </CardActions>
+                                </Card>
+                            </Grid>
+                        ))}
+                    </Grid>
+                </Container>
+
             </main>
             {/* Footer */}
             <Box sx={{ bgcolor: 'background.paper', p: 6 }} component="footer">
@@ -199,7 +246,6 @@ export default function Dashobaord() {
                     color="text.secondary"
                     component="p"
                 >
-
                 </Typography>
                 <Copyright />
             </Box>
@@ -211,7 +257,7 @@ export default function Dashobaord() {
 
 
 
-                        {/* {cards.map((card) => (
+{/* {cards.map((card) => (
                             <Grid item key={card} xs={12} sm={6} md={4}>
                                 <Card
                                     sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}

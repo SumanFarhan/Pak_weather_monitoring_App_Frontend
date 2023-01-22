@@ -108,13 +108,6 @@ export const addUser = createSlice({
             state.fiveCitiesweatherData=action.payload
             console.log('fulfilled',state.fiveCitiesweatherData)
         }
-        // [addEmployeeData.pending]: state => {
-        //     console.log('Signup Pending...');
-        // },
-        // [addEmployeeData.fulfilled]: (state, action) => {
-        //     state.userData = action.payload.data;
-        //     console.log('todo fulfilled...');
-        // }
     }
 
 })

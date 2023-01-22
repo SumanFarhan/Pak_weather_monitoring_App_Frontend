@@ -22,27 +22,29 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import { addweather,getFiveCities } from '../Redux/Reducer'
+import io from 'socket.io-client'
 
 function Copyright() {
     return (
         <Typography variant="body2" color="text.secondary" align="center">
             {'Copyright © '}
-            <Link color="inherit" href="https://mui.com/">
-                Pak Weather Monitoring App
+            <Link color="inherit" href="#">
+                Pak Weather Monitoring App 
             </Link>{' '}
             {new Date().getFullYear()}
             {'.'}
         </Typography>
     );
 }
-
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-
+const socket = io();
 const theme = createTheme();
 
 export default function Dashobaord() {
+    console.log(socket)
+    socket.emit('weather-data', (data) => {
+    console.log(data)
+      });
 
-    
     const _id = useSelector(state => state.user.loginData)
     const dispatch = useDispatch()
     useEffect(()=>{
@@ -159,8 +161,8 @@ export default function Dashobaord() {
                                             // 16:9
                                             pt: '56.25%',
                                         }}
-                                        image="https://source.unsplash.com/random"
-                                        alt="random"
+                                        image="https://source.unsplash.com/weather"
+                                        alt="weather"
                                     />
                                     <CardContent sx={{ flexGrow: 1 }}>
                                         <Typography>
@@ -170,7 +172,7 @@ export default function Dashobaord() {
                                         <br/>
                                         feels_like:{card.feels_like}
                                         <br/>
-                                        Humidity:
+                                        Humidity:{card.humidity}
                                         <br/>
                                         Sunrise:
                                         <br/>
@@ -200,7 +202,7 @@ export default function Dashobaord() {
                     color="text.secondary"
                     component="p"
                 >
-                    Something here to give the footer a purpose!
+
                 </Typography>
                 <Copyright />
             </Box>

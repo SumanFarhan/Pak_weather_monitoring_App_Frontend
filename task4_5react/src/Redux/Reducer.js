@@ -61,7 +61,7 @@ export const getFiveCities = createAsyncThunk(
 
 const initialState = {
     userData: [],
-    loginData: [],
+    loginData: '',
     fiveCitiesweatherData:[],
     citiesAddedUser:[],
     redirectToDashboard: false
@@ -77,8 +77,6 @@ export const addUser = createSlice({
             console.log('Signup Rejected');
         },
         [addSignupUser.fulfilled]: (state, action) => {
-            console.log(JSON.stringify(action.payload));
-            console.log('Signup done...');
             state.response = action.payload.message;
             alert(state.response);
         },
@@ -89,22 +87,22 @@ export const addUser = createSlice({
             console.log('login Pending...');
         },
         [addLoginUser.fulfilled]: (state, action) => {
-            state.loginData = action.payload.userID;
-            alert("Logedin Successfully",state.loginData)
-            console.log('login done...');
+            // state.loginData = action.payload.userID;
+            state.loginData=action.payload._id
+            console.log(state.response);
+            alert("Logedin Successfully")
             state.redirectToDashboard = true;
         },
         [addLoginUser.rejected]: (state) => {
             console.log('login Rejected');
         },
         [addweather.fulfilled]:(state,action)=>{
-            (state.citiesAddedUser).push(action.payload.cityData)
-            console.log(state.citiesAddedUser)
-            alert("City has been added")
-
+            state.response = action.payload.message;
+            alert("DATA",state.response)
+            console.log(state.response)
         },
         [addweather.rejected]: (state) => {
-            console.log('login Rejected');
+            console.log('add weather Rejected');
         },
         [getFiveCities.fulfilled]:(state,action)=>{
             state.fiveCitiesweatherData=action.payload

@@ -109,7 +109,7 @@ export default function Dashobaord() {
                                     id="cityName"
                                     autoComplete="new-password"
                                     onChange={Setting}
-                                    value={weatherData.cityName}
+                                    value={weatherData.cities}
                                     sx={{ mb: 2 }}
                                 />
                                 <FormControl fullWidth>

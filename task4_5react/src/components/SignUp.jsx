@@ -30,7 +30,7 @@ export default function SignUp() {
   const [signedUp, setsignedUp] = useState({
     userName: "",
     email:"",
-    city:"",
+    cities:"",
     password: "",
     
   });
@@ -107,12 +107,12 @@ export default function SignUp() {
                 <TextField
                   required
                   fullWidth
-                  name="city"
+                  name="cities"
                   label="City"
                   id="city"
                   autoComplete="city"
                   onChange={Setting}
-                  value={signedUp.city}
+                  value={signedUp.cities}
                 />
               </Grid>
               <Grid item xs={12}>

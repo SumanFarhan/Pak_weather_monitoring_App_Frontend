@@ -22,7 +22,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import { addweather,getFiveCities } from '../Redux/Reducer'
-import io from 'socket.io-client'
+
 
 function Copyright() {
     return (
@@ -36,15 +36,12 @@ function Copyright() {
         </Typography>
     );
 }
-const socket = io();
+
 const theme = createTheme();
 
 export default function Dashobaord() {
-    console.log(socket)
-    socket.emit('weather-data', (data) => {
-    console.log(data)
-      });
-
+    
+    
     const _id = useSelector(state => state.user.loginData)
     const dispatch = useDispatch()
     useEffect(()=>{

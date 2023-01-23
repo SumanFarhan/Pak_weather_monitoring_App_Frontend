@@ -49,7 +49,7 @@ export default function Dashobaord() {
     const fiveCitiesData = useSelector(state => state.user.fiveCitiesweatherData)
     const citiesAddedUser = useSelector(state => state.user.citiesAddedUser)
     const [weatherData, setweatherData] = useState({
-        cityName: "",
+        cities: "",
         temperatureUnit: "",
         _id: _id
     });
@@ -103,7 +103,7 @@ export default function Dashobaord() {
                                     required
                                     helperText="City name is required"
                                     fullWidth
-                                    name="cityName"
+                                    name="cities"
                                     label="City Name"
                                     type="text"
                                     id="cityName"
